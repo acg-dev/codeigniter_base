@@ -1,0 +1,585 @@
+body{
+	background: #f2f2f2;
+}
+
+
+img,
+img:focus,
+a,
+a:hover,
+a:focus,
+input,
+input:hover,
+input:focus,
+button,
+button:hover,
+button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+a,
+input[type="text"],
+textarea,
+.btn,
+.transition {
+    -webkit-transition: all 250ms ease-in-out;
+    -moz-transition: all 250ms ease-in-out;
+    -ms-transition: all 250ms ease-in-out;
+    -o-transition: all 250ms ease-in-out;
+    transition: all 250ms ease-in-out;
+}
+
+.transition-500 {
+    -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -ms-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
+}
+
+.link,
+a{
+    color: #c32055;   
+}
+
+.link:hover,
+a:hover{
+    color: #c32055;   
+    text-decoration: underline;
+}
+
+a:hover,
+input[type="text"]:hover,
+textarea:hover,
+input[type="text"]:focus,
+textarea:focus,
+.btn:hover,
+.transition:hover{
+    text-decoration: none;
+    -webkit-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+    -ms-transition: all 200ms ease-in-out;
+    -o-transition: all 200ms ease-in-out;
+    transition: all 200ms ease-in-out;
+}
+
+textarea{
+    resize: none;
+}
+
+/* MARGINS */
+
+.margin-left-0,
+.margin-0 {
+    margin-left: 0px !important;
+}
+.margin-right-0,
+.margin-0 {
+    margin-right: 0px !important;
+}
+.margin-top-0,
+.margin-0 {
+    margin-top: 0px !important;
+}
+.margin-bottom-0,
+.margin-0 {
+    margin-bottom: 0px !important;
+}
+.margin-left-5,
+.margin-5 {
+    margin-left: 5px !important;
+}
+.margin-right-5,
+.margin-5 {
+    margin-right: 5px !important;
+}
+.margin-top-5,
+.margin-5 {
+    margin-top: 5px !important;
+}
+.margin-bottom-5,
+.margin-5 {
+    margin-bottom: 5px !important;
+}
+.margin-left-10,
+.margin-10 {
+    margin-left: 10px !important;
+}
+.margin-right-10,
+.margin-10 {
+    margin-right: 10px !important;
+}
+.margin-top-10,
+.margin-10 {
+    margin-top: 10px !important;
+}
+.margin-bottom-10,
+.margin-10 {
+    margin-bottom: 10px !important;
+}
+.margin-left-15,
+.margin-15 {
+    margin-left: 15px !important;
+}
+.margin-right-15,
+.margin-15 {
+    margin-right: 15px !important;
+}
+.margin-top-15,
+.margin-15 {
+    margin-top: 15px !important;
+}
+.margin-bottom-15,
+.margin-15 {
+    margin-bottom: 15px !important;
+}
+.margin-left-20,
+.margin-20 {
+    margin-left: 20px !important;
+}
+.margin-right-20,
+.margin-20 {
+    margin-right: 20px !important;
+}
+.margin-top-20,
+.margin-20 {
+    margin-top: 20px !important;
+}
+.margin-bottom-20,
+.margin-20 {
+    margin-bottom: 20px !important;
+}
+.margin-left-25,
+.margin-25 {
+    margin-left: 25px !important;
+}
+.margin-right-25,
+.margin-25 {
+    margin-right: 25px !important;
+}
+.margin-top-25,
+.margin-25 {
+    margin-top: 25px !important;
+}
+.margin-bottom-25,
+.margin-25 {
+    margin-bottom: 25px !important;
+}
+.margin-left-30,
+.margin-30 {
+    margin-left: 30px !important;
+}
+.margin-right-30,
+.margin-30 {
+    margin-right: 30px !important;
+}
+.margin-top-30,
+.margin-30 {
+    margin-top: 30px !important;
+}
+.margin-bottom-30,
+.margin-30 {
+    margin-bottom: 30px !important;
+}
+.margin-left-35,
+.margin-35 {
+    margin-left: 35px !important;
+}
+.margin-right-35,
+.margin-35 {
+    margin-right: 35px !important;
+}
+.margin-top-35,
+.margin-35 {
+    margin-top: 35px !important;
+}
+.margin-bottom-35,
+.margin-35 {
+    margin-bottom: 35px !important;
+}
+.margin-left-40,
+.margin-40 {
+    margin-left: 40px !important;
+}
+.margin-right-40,
+.margin-40 {
+    margin-right: 40px !important;
+}
+.margin-top-40,
+.margin-40 {
+    margin-top: 40px !important;
+}
+.margin-bottom-40,
+.margin-40 {
+    margin-bottom: 40px !important;
+}
+.margin-left-45,
+.margin-45 {
+    margin-left: 45px !important;
+}
+.margin-right-45,
+.margin-45 {
+    margin-right: 45px !important;
+}
+.margin-top-45,
+.margin-45 {
+    margin-top: 45px !important;
+}
+.margin-bottom-45,
+.margin-45 {
+    margin-bottom: 45px !important;
+}
+.margin-left-50,
+.margin-50 {
+    margin-left: 50px !important;
+}
+.margin-right-50,
+.margin-50 {
+    margin-right: 50px !important;
+}
+.margin-top-50,
+.margin-50 {
+    margin-top: 50px !important;
+}
+.margin-bottom-50,
+.margin-50 {
+    margin-bottom: 50px !important;
+}
+/* PADDINGS */
+
+.padding-left-0,
+.padding-0 {
+    padding-left: 0px !important;
+}
+.padding-right-0,
+.padding-0 {
+    padding-right: 0px !important;
+}
+.padding-top-0,
+.padding-0 {
+    padding-top: 0px !important;
+}
+.padding-bottom-0,
+.padding-0 {
+    padding-bottom: 0px !important;
+}
+.padding-left-5,
+.padding-5 {
+    padding-left: 5px !important;
+}
+.padding-right-5,
+.padding-5 {
+    padding-right: 5px !important;
+}
+.padding-top-5,
+.padding-5 {
+    padding-top: 5px !important;
+}
+.padding-bottom-5,
+.padding-5 {
+    padding-bottom: 5px !important;
+}
+.padding-left-10,
+.padding-10 {
+    padding-left: 10px !important;
+}
+.padding-right-10,
+.padding-10 {
+    padding-right: 10px !important;
+}
+.padding-top-10,
+.padding-10 {
+    padding-top: 10px !important;
+}
+.padding-bottom-10,
+.padding-10 {
+    padding-bottom: 10px !important;
+}
+.padding-left-15,
+.padding-15 {
+    padding-left: 15px !important;
+}
+.padding-right-15,
+.padding-15 {
+    padding-right: 15px !important;
+}
+.padding-top-15,
+.padding-15 {
+    padding-top: 15px !important;
+}
+.padding-bottom-15,
+.padding-15 {
+    padding-bottom: 15px !important;
+}
+.padding-left-20,
+.padding-20 {
+    padding-left: 20px !important;
+}
+.padding-right-20,
+.padding-20 {
+    padding-right: 20px !important;
+}
+.padding-top-20,
+.padding-20 {
+    padding-top: 20px !important;
+}
+.padding-bottom-20,
+.padding-20 {
+    padding-bottom: 20px !important;
+}
+.padding-left-25,
+.padding-25 {
+    padding-left: 25px !important;
+}
+.padding-right-25,
+.padding-25 {
+    padding-right: 25px !important;
+}
+.padding-top-25,
+.padding-25 {
+    padding-top: 25px !important;
+}
+.padding-bottom-25,
+.padding-25 {
+    padding-bottom: 25px !important;
+}
+.padding-left-30,
+.padding-30 {
+    padding-left: 30px !important;
+}
+.padding-right-30,
+.padding-30 {
+    padding-right: 30px !important;
+}
+.padding-top-30,
+.padding-30 {
+    padding-top: 30px !important;
+}
+.padding-bottom-30,
+.padding-30 {
+    padding-bottom: 30px !important;
+}
+.padding-left-35,
+.padding-35 {
+    padding-left: 35px !important;
+}
+.padding-right-35,
+.padding-35 {
+    padding-right: 35px !important;
+}
+.padding-top-35,
+.padding-35 {
+    padding-top: 35px !important;
+}
+.padding-bottom-35,
+.padding-35 {
+    padding-bottom: 35px !important;
+}
+.padding-left-40,
+.padding-40 {
+    padding-left: 40px !important;
+}
+.padding-right-40,
+.padding-40 {
+    padding-right: 40px !important;
+}
+.padding-top-40,
+.padding-40 {
+    padding-top: 40px !important;
+}
+.padding-bottom-40,
+.padding-40 {
+    padding-bottom: 40px !important;
+}
+.padding-left-45,
+.padding-45 {
+    padding-left: 45px !important;
+}
+.padding-right-45,
+.padding-45 {
+    padding-right: 45px !important;
+}
+.padding-top-45,
+.padding-45 {
+    padding-top: 45px !important;
+}
+.padding-bottom-45,
+.padding-45 {
+    padding-bottom: 45px !important;
+}
+.padding-left-50,
+.padding-50 {
+    padding-left: 50px !important;
+}
+.padding-right-50,
+.padding-50 {
+    padding-right: 50px !important;
+}
+.padding-top-50,
+.padding-50 {
+    padding-top: 50px !important;
+}
+.padding-bottom-50,
+.padding-50 {
+    padding-bottom: 50px !important;
+}
+
+/*HEADER*/
+
+header{
+	background: #fff;
+	height: 60px;
+	box-sizing: border-box;
+}
+header h1{font-size: 20px}
+
+header .menu .logo {
+	display: none;
+}
+
+header .menu.open .logo {
+	display: block;
+}
+
+header .menu .menu-bar {
+    display: inline-block;
+    cursor: pointer;
+}
+
+header .menu-bar .bar1, .bar2, .bar3 {
+    width: 20px;
+    height: 3px;
+    background-color: #999;
+    margin: 3px 0;
+    transition: 0.4s;
+}
+
+header .menu .menu-bar:hover > div{
+    background-color: #000;
+}
+header .menu.open .menu-bar > div {
+    background-color: #333;
+}
+
+.body-frame{
+	display: flex;
+	align-items: flex-start;
+	overflow: hidden;
+}
+.body-frame .container-content{
+	width: 100%;
+	padding: 20px 20px 40px;
+	box-sizing: border-box;
+}
+
+.body-frame .container-content > div{
+	background: #fff;
+	padding: 20px;
+	height: calc(100vh - 120px);
+	overflow: auto;
+}
+
+.body-frame .container-content .content{
+	min-width: 240px;
+}
+
+.body-frame aside{
+	width: 0%;
+	height: calc(100vh - 60px);
+  	background-color: #293846;
+	position: relative;
+  	overflow: auto;
+}
+.body-frame.open aside{
+	width: 20%;
+	min-width: 250px;
+}
+.body-frame.open .container-content{
+	width: 80%;
+	position: relative;
+}
+
+@media (max-width: 1300px){
+	.body-frame.open aside{
+		width: 25%;
+	}
+	.body-frame.open .container-content{
+		width: 75%;
+	}
+}
+
+.body-frame aside nav#usmenu{
+  position: absolute; 
+  width: calc(100% - 20px); 
+  height: auto; 
+  top: 0; 
+  left: 0; 
+  background-color: #f2f2f2;
+  margin: 10px;
+  transition: 0.4s; 
+}
+
+.body-frame aside nav#usmenu a{
+  display: block; 
+  padding: 5px 15px; 
+  box-sizing: border-box; 
+  color: #666; 
+  font-size: 12px;
+}
+.body-frame aside nav#usmenu .end{border-bottom: 1px solid #999; }
+.body-frame aside nav#usmenu a:hover{background-color: #dfdfdf; text-decoration: none;}
+
+
+.body-frame aside nav#usmenu a i{
+  padding-right: 5px; 
+  font-size: 14px;
+  width: 30px;
+  text-align: center;
+}
+
+/*colors4menu*/
+.navy i {color: #001F3F; }
+.blue i {color: #0074D9; }
+.aqua i {color: #9E0000; }
+.teal i {color: #39CCCC; }
+.olive i {color: #3D9970; }
+.green i {color: #7CB700; }
+.lime i {color: #006837; }
+.yellow i {color: #FFDC00; }
+.orange i {color: #F15A24; }
+.red i {color: #FF4136; }
+.fuchsia i {color: #F012BE; }
+.purple i {color: #593161; }
+.purple2 i {color: #9222A9; }
+.maroon i {color: #05506F; }
+
+.btn-preview{ background: #FF4136; color:#fff;}
+.btn-preview:hover{ background: #9C2822; color:#fff;}
+
+.body-frame aside  nav#usmenu a.act{background-color: #ddd; }
+
+.body-frame aside nav#usmenu .group ul,
+.body-frame aside nav#usmenu .group ul li{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.body-frame aside nav#usmenu .group ul{display: none; }
+.body-frame aside nav#usmenu .group ul li a{ padding-left: 30px; }
+.body-frame aside nav#usmenu .group.act ul{display: block;}
+
+
+footer{
+	position: fixed;
+	bottom: 10px;
+	right: 5%;
+	font-style: italic;
+}
+
+#notification{
+	position: fixed;
+	top: 10px;
+	right: 10px;
+	width: 40%;
+	min-width: 320px;
+}
