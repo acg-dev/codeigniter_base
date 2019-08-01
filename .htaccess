@@ -1,16 +1,19 @@
 RewriteEngine On
-RewriteBase /heyho/hey-ho_microsite/
+RewriteBase /base_system/
 
 <IfModule mod_env.c>
     SetEnv CI_ENV development
 </IfModule>
 
-RewriteRule ^(([a-z0-9\-]+/)*[a-z0-9\-]+)/$ $1 [NC,R=301,L]
-RewriteRule ^(css|js|images|fonts|datas|uploads)/(.*)$ assets/default/$1/$2 [L,NC]
+RewriteRule ^(css|js|images|fonts|datas|uploads|plugins)/(.*)$ assets/default/$1/$2 [L,NC]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(admin)(.*)$ admin.php?/$1 [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(api)(.*)$ ws_api.php?/$1 [L,QSA]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

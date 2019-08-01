@@ -38,6 +38,7 @@
 
     <script type="text/javascript">
         var base_url = '<?php echo base_url(); ?>';
+        var app_url = '<?php echo app_url('api'); ?>';
         <?php if(!empty($meta['fb:app_id'])): ?>
             facebook_object.app_id = "<?php echo $meta['fb:app_id']; ?>";
         <?php endif; ?>
@@ -61,29 +62,26 @@
     <?php if(!empty($appis->google_fonts)): ?>
         <?php echo $appis->google_fonts; ?>
     <?php endif; ?>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <?php if(!empty($appis->fb)): ?>
         <script>
-            window.fbAsyncInit = function() {
-                FB.init({
-                    appId: '<?php echo $appis->fb; ?>',
-                    autoLogAppEvents : true,
-                    xfbml: true,
-                    version: 'v2.10'
-                });
-                FB.AppEvents.logPageView();
-            };
-
-            (function(d, s, id){
-               var js, fjs = d.getElementsByTagName(s)[0];
-               if (d.getElementById(id)) {return;}
-               js = d.createElement(s); js.id = id;
-               js.src = "//connect.facebook.net/hu_HU/sdk.js";
-               fjs.parentNode.insertBefore(js, fjs);
-           }(document, 'script', 'facebook-jssdk'));
-       </script>
-       <script type="text/javascript" src="<?php echo base_url() . 'js/fb_share.js; '?>"></script>
+          window.fbAsyncInit = function() {
+            FB.init({
+              app_id           : '<?php echo $appis->fb; ?>',
+              autoLogAppEvents : true,
+              xfbml            : true,
+              version          : 'v4.0'
+            });
+          };
+        </script>
+        <script async defer src="https://connect.facebook.net/hu_HU/sdk.js"></script>
    <?php endif; ?>
+
+   <?php if(!empty($css_files)): ?>
+        <?php foreach($css_files as $file): ?>
+            <link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
+        <?php endforeach; ?>
+    <?php endif; ?>
+   
    <?php if(!empty($appis->tagmanager)): ?>
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -101,24 +99,19 @@
             height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <!-- End Google Tag Manager (noscript) -->
         <?php endif; ?>
-        <?php echo $header; ?>
-        <main>
-            <?php echo $content; ?>
-        </main>
-        <?php echo $footer; ?>
-        <?php if(!empty($css_files)): ?>
-            <?php foreach($css_files as $file): ?>
-                <link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
-            <?php endforeach; ?>
-        <?php endif; ?>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        <?php if(!empty($js_files)): ?>
-            <?php foreach($js_files as $file): ?>
-                <script src="<?php echo $file; ?>"></script>
-            <?php endforeach; ?>
-        <?php endif; ?>
-        <?php echo $notification_html; ?>
-    </body>
-    </html>
+    <?php echo $header; ?>
+    <main id="main">
+        <?php echo $content; ?>
+    </main>
+    <?php echo $footer; ?>
+
+    <?php if(!empty($js_files)): ?>
+        <?php foreach($js_files as $file): ?>
+            <script src="<?php echo $file; ?>"></script>
+        <?php endforeach; ?>
+    <?php endif; ?>
+    <?php echo $cookie_police; ?>
+    <?php echo $notification_html; ?>
+    <?php echo $modals; ?>
+</body>
+</html>

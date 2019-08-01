@@ -19,7 +19,7 @@ class Authentication extends ACG_Controller {
             header('HTTP/1.0 401 Unauthorized');
             exit;
         } else {
-            if(!($_SERVER['PHP_AUTH_USER'] == "admin" && $this->authentication_service->password_verify($_SERVER['PHP_AUTH_PW'], '$2y$10$Pe9xeDscSJQ1VWwi91cHm.cnA.8nB05l3Wt/.FnmTkw82pE2epWdG'))){
+            if(!($_SERVER['PHP_AUTH_USER'] == ADMIN_USER && $this->authentication_service->password_verify($_SERVER['PHP_AUTH_PW'], ADMIN_PASS))){
                 header('WWW-Authenticate: Basic realm=""');
                 header('HTTP/1.0 401 Unauthorized');
                 exit;
@@ -62,6 +62,7 @@ class Authentication extends ACG_Controller {
     }
 
     public function sign_out() {
+        echo "string";
         $this->authentication_service->sign_out();
 	   redirect('admin');
     }

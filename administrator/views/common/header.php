@@ -16,7 +16,7 @@
 		</div>
 		<div class="col-sm-6 col-md-7 col-xl-8 d-none d-sm-block"></div>
 		<div class="col-4 col-sm-2">
-			<div class="text-right"><a href="<?php echo base_url(); ?>admin/sign-out" style="white-space: nowrap;"><i class="fas fa-sign-out-alt"></i> Kilépés</a></div>
+			<div class="text-right"><a href="<?php echo base_url(); ?>admin/authentication/sign-out" style="white-space: nowrap;"><i class="fas fa-sign-out-alt"></i> Kilépés</a></div>
 		</div>
 	</div>
 </header>

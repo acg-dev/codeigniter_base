@@ -9,6 +9,7 @@ class Home extends ACG_Controller {
 
 	public function index()
 	{
+		$this->set_js('vue/home.js');
 		$this->render('home/index');
 	}
 }

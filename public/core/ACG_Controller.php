@@ -6,17 +6,14 @@ class ACG_Controller extends CI_Controller {
 
     protected $data;
     protected $cookie_police;
-    protected $current_user;
+    public $current_user;
 
     public function __construct() {
         parent::__construct();
 
         $this->current_user = $this->authentication_service->get_current_user();
 
-        $this->read_global();
         $this->data = new stdClass();
-        $this->data->modals = new stdClass();
-
         $this->data->meta = array();
         $this->data->appis = array();
         $this->data->css_files = array();
@@ -28,12 +25,13 @@ class ACG_Controller extends CI_Controller {
         else
             $this->cookie_police = false;
 
+        $this->read_global();
     }
 
-    protected function render($page_template = '', $base = 'pages') {
+    protected function render($page_template = '', $page_id = false, $base = 'pages') {
         
         $base_data = array(
-            'page_id' => strtolower($this->router->class),
+            'page_id' => $page_id ? $page_id : strtolower($this->router->class),
             'meta' => !empty($this->data->meta) ? $this->data->meta : false,
             'appis' => $this->data->appis,
             'css_files' => $this->data->css_files,
@@ -41,7 +39,8 @@ class ACG_Controller extends CI_Controller {
             'header' => $this->load->view('common/header', $this->data, true),
             'notification_html' => $this->load->view('widgets/modals/system_notifications', array('notifications' =>$this->system_notification->render(), 'level' => $this->system_notification->get_level()), true),
             'content' => $this->load->view($base .'/'. $page_template, $this->data->output, true),
-            'cookie_police' => (!$this->cookie_police)? $this->load->view('common/cookie_police', $this->data, true) : false,
+            'modals' => $this->modal->render(),
+            'cookie_police' => (!$this->cookie_police)? $this->load->view('common/cookie_police', $this->data, true) : '',
             'footer' => $this->load->view('common/footer', $this->data, true),
         );
 
@@ -57,13 +56,21 @@ class ACG_Controller extends CI_Controller {
         }
         if(!empty($global['css'])){
             foreach ($global['css'] as $value) {
-                $this->set_css($value);
+                if(is_object($value)){
+                    $this->set_css($value->name, $value->key, $value->path);
+                }else{
+                    $this->set_css($value);
+                }
             }
         }
         
         if(!empty($global['js'])){
             foreach ($global['js'] as $value) {
-                $this->set_js($value);
+                if(is_object($value)){
+                    $this->set_js($value->name, $value->key, $value->path);
+                }else{
+                    $this->set_js($value);
+                }
             }
         }
 
@@ -82,6 +89,8 @@ class ACG_Controller extends CI_Controller {
                 $value = (!empty($path)) ? $path . $value : base_url() . 'js/' . $value;
             }
 
+            $value = str_replace(':base_url', base_url(), $value);
+
             if(!empty($key)){
                 $this->data->js_files[$key] = $value;
             }else{
@@ -96,6 +105,8 @@ class ACG_Controller extends CI_Controller {
                 $value = (!empty($path)) ? $path . $value : base_url() . 'css/' . $value;
             }
 
+            $value = str_replace(':base_url', base_url(), $value);
+
             if(!empty($key)){
                 $this->data->css_files[$key] = $value;
             }else{
@@ -106,7 +117,27 @@ class ACG_Controller extends CI_Controller {
 
     protected function set_meta($key, $value) {
         if (!empty($key) && !empty($value)) {
+            if($key == 'title'){
+                $value .= ' - Orákulum | ACG Group';
+            }
             $this->data->meta[$key] = $value;
+        }
+    }
+
+    protected function set_breadcrumb($title, $url = ''){
+        if(!empty($title)){
+            $this->data->breadcrumbs[] = (object) array('title' => $title, 'url' => $url);
+        }
+    }
+
+   
+    protected function set_view($name, $type, $variable_name = ''){
+        if(!empty($name) && !empty($type)){
+            if(empty($variable_name)){
+                $variable_name = explode('/', $name);
+                $variable_name = end($variable_name);
+            }
+            $this->data->views[$type][] = (object) array('name' => $name, 'variable_name' => $variable_name);
         }
     }
 
@@ -114,6 +145,10 @@ class ACG_Controller extends CI_Controller {
         if(!empty($key)){
             $this->data->output[$key] = $value;
         }
+    }
+
+    public function get_data(){
+        return $this->data->output;
     }
 
 

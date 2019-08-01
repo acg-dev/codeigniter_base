@@ -29,7 +29,13 @@ if(!empty($_SERVER['HTTPS']))
 else
 	$config['http_protocol'] = 'http://';
 
-$config['base_url'] = $config['http_protocol'] . $_SERVER['HTTP_HOST'].'/heyho/hey-ho_microsite' ;
+if(ENVIRONMENT == 'development'){
+  $config['base_url'] = $config['http_protocol'] . $_SERVER['HTTP_HOST'] . '/base_system/';
+}elseif(ENVIRONMENT == 'testing'){
+  $config['base_url'] = $config['http_protocol'] . $_SERVER['HTTP_HOST'] . '/base_system/';
+}else{
+  $config['base_url'] = $config['http_protocol'] . $_SERVER['HTTP_HOST'] . '/base_system/';
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -82,7 +88,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'english';
+$config['language']	= 'hungarian';
 
 /*
 |--------------------------------------------------------------------------
@@ -455,8 +461,8 @@ $config['global_xss_filtering'] = TRUE;
 | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
 */
 $config['csrf_protection'] = (ENVIRONMENT !== 'production');
-$config['csrf_token_name'] = '_csrf';
-$config['csrf_cookie_name'] = '_csrf';
+$config['csrf_token_name'] = 'acg_csrf';
+$config['csrf_cookie_name'] = 'acg_csrf';
 $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = TRUE;
 $config['csrf_exclude_uris'] = array();

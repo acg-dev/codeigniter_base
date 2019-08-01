@@ -84,5 +84,6 @@ defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
-define('GOOGLE_CAPTCHA_SITE_KEY',	'6LcdJjAUAAAAAD_YVHhFSFHuLfvBXMQlzwNnlYa3');
-define('GOOGLE_CAPTCHA_SECRET_KEY',	'6LcdJjAUAAAAAD69xWRW4cH35TYLV2v7tPh4w7Ms');
+define('GOOGLE_CAPTCHA_SITE_KEY',	'');
+define('GOOGLE_CAPTCHA_SECRET_KEY',	'');
+
