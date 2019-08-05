@@ -23,21 +23,25 @@ class Authentication_service {
 
 
     public function is_signed_in() {
-		return $this->get_current_user()->signed_in;
+        return $this->get_current_user()->signed_in;
     }
 
     public function check_signed_in(){
-    	if(!$this->get_current_user()->signed_in){
+        $permission_list = $this->CI->session->userdata('permission_list');
+    	if(empty($permission_list) || !$this->get_current_user()->signed_in){
+            $this->sign_out();
     		$this->CI->system_notification->add('Az oldal megtekintéséhez be kell lépni!', System_notification::LEVEL_ERROR);
     		$get_params = $this->CI->input->get(NULL, True);
     		$get_params['route'] = $this->CI->uri->uri_string(); 
-    		redirect('belepes'. '?' . http_build_query($get_params));
+    		redirect('?' . http_build_query($get_params));
         }
     }
 
     public function sign_in($password, $user) {
-	    if(!empty($user) && $this->password_verify($password, $user->password)){
+        if(!empty($user) && $this->password_verify($password, $user->password)){
             unset($user->password);
+            $user->signed_in = true;
+
             $this->save_session($user);
             return true;
         }
