@@ -12,4 +12,10 @@ class Home extends ACG_Controller {
 		$this->set_js('vue/home.js');
 		$this->render('home/index');
 	}
+	public function home()
+	{
+		echo "2";
+		// $this->set_js('vue/home.js');
+		// $this->render('home/index');
+	}
 }

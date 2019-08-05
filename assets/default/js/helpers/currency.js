@@ -13,6 +13,9 @@ function CurrencyHelper(){
             return NaN;
         }
 
+        if(currency == undefined){
+            currency = currency_format.label;
+        }
 
         if(currency_display == undefined){
             currency_display = true;
@@ -22,7 +25,15 @@ function CurrencyHelper(){
             round = false;
         }
 
-        number = Math.round(number * 100) / 100;
+        var n = '1';
+
+        for(var i = 1; i <= currency_format.number_format.decimals; i++){
+            n += '0'; 
+        }
+
+        n = parseInt(n);
+
+        number = Math.round(number * n) / n;
         
         if(round){
             number = Math.round(number);
@@ -30,6 +41,7 @@ function CurrencyHelper(){
 
 
         var num = number + "";
+        
         num = num.split(".",2);
         var is_minus = 0;
         if( parseInt( num[0] ) < 0 ){
@@ -43,20 +55,23 @@ function CurrencyHelper(){
         }
         var value = "";
         for( var i=place.length-1; i>=0; i--){
-            value += place[i]+" ";
+            value += place[i] + currency_format.number_format.thousend_delimiter;
         }
         value = value.replace(/,$/,"");
         value = value.trim();
+
         if(!round){
+            var decimal_palces = '';
             if(num[1]){
-                num[1] = num[1].substr(0,2);
-                if(num[1].length == 1){
-                    num[1] += '0';
-                }
-                value += ","+num[1];
-            }else{
-                value += ",00";
+                decimal_palces = num[1].substr(0, currency_format.number_format.decimals);
             }
+
+            if(decimal_palces.length < currency_format.number_format.decimals){
+                    for(var i = 0; i <= (currency_format.number_format.decimals - decimal_palces.length); i++)
+                    decimal_palces += '0';
+                }
+            
+            value += currency_format.number_format.decimal_delimiter + decimal_palces;
         }
         if( is_minus ){
             value = '-' + value;

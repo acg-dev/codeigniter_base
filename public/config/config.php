@@ -29,12 +29,14 @@ if(!empty($_SERVER['HTTPS']))
 else
 	$config['http_protocol'] = 'http://';
 
+$config['base_uri'] = 'base_system/';
+
 if(ENVIRONMENT == 'development'){
-  $config['base_url'] = $config['http_protocol'] . $_SERVER['HTTP_HOST'] . '/base_system/';
+  $config['base_url'] = $config['http_protocol'] . $_SERVER['HTTP_HOST'] . '/' . $config['base_uri'];
 }elseif(ENVIRONMENT == 'testing'){
-  $config['base_url'] = $config['http_protocol'] . $_SERVER['HTTP_HOST'] . '/base_system/';
+  $config['base_url'] = $config['http_protocol'] . $_SERVER['HTTP_HOST'] . '/' . $config['base_uri'];
 }else{
-  $config['base_url'] = $config['http_protocol'] . $_SERVER['HTTP_HOST'] . '/base_system/';
+  $config['base_url'] = $config['http_protocol'] . $_SERVER['HTTP_HOST'] . '/' . $config['base_uri'];
 }
 
 /*
@@ -112,7 +114,7 @@ $config['charset'] = 'UTF-8';
 | setting this variable to TRUE (boolean).  See the user guide for details.
 |
 */
-$config['enable_hooks'] = FALSE;
+$config['enable_hooks'] = true;
 
 /*
 |--------------------------------------------------------------------------

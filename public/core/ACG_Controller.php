@@ -3,7 +3,9 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class ACG_Controller extends CI_Controller {
-
+    public $current_language = null;
+    public $currency = null;
+    public $languages = null;
     protected $data;
     protected $cookie_police;
     public $current_user;
@@ -26,6 +28,8 @@ class ACG_Controller extends CI_Controller {
             $this->cookie_police = false;
 
         $this->read_global();
+        $this->load_language();
+        $this->set_currency();
     }
 
     protected function render($page_template = '', $page_id = false, $base = 'pages') {
@@ -157,5 +161,40 @@ class ACG_Controller extends CI_Controller {
             return $this->load->view('pages/' . $view, $this->data->output, true);
         }      
         return false;
+    }
+
+    protected function load_language() {
+        $this->languages = $this->config->item('languages');
+        $current_language = $this->config->item('application_default_language_key');
+        // Ha többnyelvű az oldal
+        if( true === $this->config->item('application_use_multilang') ) {
+            if( 'URL' === $this->config->item('application_language_storage') && array_key_exists($this->uri->segment($this->config->item('application_language_segment_no')), $this->languages)){
+                    $current_language = $this->uri->segment($this->config->item('application_language_segment_no'));
+            }elseif( 'SESSION' === $this->config->item('application_language_storage') && $this->session->userdata('current_language')){
+                    $current_language = $this->session->userdata('current_language');
+            }
+        }
+
+        $this->current_language = $this->languages[$current_language];
+        $this->lang->load('global', $this->current_language['folder']);
+    }
+
+    public function set_language($lang) {
+        $this->languages = $this->config->item('languages');
+
+        if(array_key_exists($lang, $this->languages)){
+            $this->session->set_userdata('current_language', $lang);
+            $this->current_language = $this->languages[$lang];
+        }else{
+            $this->session->set_userdata('current_language', $this->config->item('application_default_language_key'));
+            $this->current_language = $this->languages[$this->config->item('application_default_language_key')];
+        }
+    }
+
+    protected function set_currency() {
+        if( null === $this->session->userdata('currency') ) {
+            $this->session->set_userdata('currency',$this->config->item('currencies')[$this->config->item('application_default_currency_key')]);
+        }
+        $this->currency = $this->session->userdata('currency');
     }
 }

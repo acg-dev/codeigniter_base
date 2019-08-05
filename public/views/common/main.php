@@ -5,7 +5,7 @@
         <title><?php echo $meta['title']; ?></title>
     <?php endif; ?>
     <?php if(!empty($meta['favicon'])): ?>
-        <link rel="icon" type="<?php echo $meta['favicon']->type; ?>" href="<?php echo base_url() . $meta['favicon']->src; ?>">
+        <link rel="icon" type="<?php echo $meta['favicon']->type; ?>" href="<?php echo root_url() . $meta['favicon']->src; ?>">
     <?php endif; ?>
 
     <meta charset="utf-8">
@@ -38,7 +38,19 @@
 
     <script type="text/javascript">
         var base_url = '<?php echo base_url(); ?>';
-        var app_url = '<?php echo app_url('api'); ?>';
+        var app_url = '<?php echo root_url('api/'); ?>';
+        var date_format = {
+            'date_format': '<?php echo $this->current_language['date_format_full_js'] ?>'
+        };
+        
+        var currency_format = {
+            'label': '<?php echo $this->currency['label'] ?>',
+            'number_format' : {
+                'thousend_delimiter': '<?php echo $this->currency['number_format']['thousend_delimiter'] ?>',
+                'decimal_delimiter': '<?php echo $this->currency['number_format']['decimal_delimiter'] ?>',
+                'decimals': '<?php echo $this->currency['number_format']['decimals'] ?>'
+            }
+        };
         <?php if(!empty($meta['fb:app_id'])): ?>
             facebook_object.app_id = "<?php echo $meta['fb:app_id']; ?>";
         <?php endif; ?>
