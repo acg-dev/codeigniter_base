@@ -2,6 +2,8 @@
 
 if (!function_exists('convert_date')){
 	function convert_date($date){
+		$ci = &get_instance();
+
 		if(is_numeric($date)){
 			$date = date('Y-m-d H:i:s', $date);
 		}
@@ -15,10 +17,10 @@ if (!function_exists('convert_date')){
 		$month_short_name = array('jan', 'febr', 'márc', 'ápr', 'máj', 'júns', 'júl', 'aug', 'szept', 'okt', 'nov', 'dec');
 		$data = (object) array(
 							'original' => $date, 
-							'date' => date('Y-m-d', strtotime($date)), 
-							'date_hu' => date('Y. m. d.', strtotime($date)), 
-							'time' => date('H:i', strtotime($date)), 
-							'date_time' => date('Y-m-d H:i', strtotime($date)), 
+							'date' => date($ci->current_language['date_format_full'], strtotime($date)), 
+							'time' => date($ci->current_language['time_format_short'], strtotime($date)), 
+							'long_time' => date($ci->current_language['time_format_long'], strtotime($date)), 
+							'datetime' => date($ci->current_language['datetime_format_full'], strtotime($date)), 
 							'day_string' => '', 
 							'to_string' => '', 
 							'day_name'=> $day_name[date('N', strtotime($date)) - 1], 

@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Documents extends CIX_REST_Controller {
+class Documents extends ACG_Controller {
 
     public function __construct() {
 		parent::__construct();

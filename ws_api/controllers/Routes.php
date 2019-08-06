@@ -1,27 +1,23 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
+	
+	/*Leíró oldalak*/ 
 
-class Routes extends CIX_REST_Controller {
+class Routes extends ACG_Controller {
 
 	public function __construct()
 	{
 		parent::__construct();
 	}
 	
-	public function index_get()
+	public function redirect_301($routes_redirect_url)
 	{
-		echo '';
+		redirect($routes_redirect_url, 'location', '301');
 	}
 	
-	public function redirect_301_get($id)
+	public function redirect_404()
 	{
-		redirect('404', 'ncurses_refresh(ch)');
+		$this->set_response(array(), 404, 'Hibás oldal');
 	}
-	
-	public function redirect_404_get()
-	{
-		echo '404';
-	}
-	
 }
 
 ?>
