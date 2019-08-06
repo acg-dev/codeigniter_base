@@ -29,14 +29,15 @@ if(!empty($_SERVER['HTTPS']))
 else
 	$config['http_protocol'] = 'http://';
 
-if(ENVIRONMENT == 'development'){
-  $config['base_url'] = $config['http_protocol'] . $_SERVER['HTTP_HOST'] . '/base_system/';
-}elseif(ENVIRONMENT == 'testing'){
-  $config['base_url'] = $config['http_protocol'] . $_SERVER['HTTP_HOST'] . '/base_system/';
-}else{
-  $config['base_url'] = $config['http_protocol'] . $_SERVER['HTTP_HOST'] . '/base_system/';
-}
+$config['base_uri'] = 'base_system';
 
+if(ENVIRONMENT == 'development'){
+  $config['base_url'] = $config['http_protocol'] . $_SERVER['HTTP_HOST'] . '/' . $config['base_uri'] . '/';
+}elseif(ENVIRONMENT == 'testing'){
+  $config['base_url'] = $config['http_protocol'] . $_SERVER['HTTP_HOST'] . '/' . $config['base_uri'] . '/';
+}else{
+  $config['base_url'] = $config['http_protocol'] . $_SERVER['HTTP_HOST'] . '/' . $config['base_uri'] . '/';
+}
 /*
 |--------------------------------------------------------------------------
 | Index File
@@ -112,7 +113,7 @@ $config['charset'] = 'UTF-8';
 | setting this variable to TRUE (boolean).  See the user guide for details.
 |
 */
-$config['enable_hooks'] = FALSE;
+$config['enable_hooks'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------
@@ -460,7 +461,8 @@ $config['global_xss_filtering'] = TRUE;
 | 'csrf_regenerate' = Regenerate token on every submission
 | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
 */
-$config['csrf_protection'] = (ENVIRONMENT !== 'production');
+
+$config['csrf_protection'] = (ENVIRONMENT == 'production');
 $config['csrf_token_name'] = 'acg_csrf';
 $config['csrf_cookie_name'] = 'acg_csrf';
 $config['csrf_expire'] = 7200;

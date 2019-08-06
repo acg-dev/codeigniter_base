@@ -63,8 +63,8 @@ class Authentication extends ACG_Controller {
 
     public function sign_out() {
         echo "string";
-        $this->authentication_service->sign_out();
-	   redirect('admin');
+        // $this->authentication_service->sign_out();
+	   // redirect('admin');
     }
 
 }

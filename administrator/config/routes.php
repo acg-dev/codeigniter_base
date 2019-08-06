@@ -1,62 +1,46 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
-/*
-| -------------------------------------------------------------------------
-| URI ROUTING
-| -------------------------------------------------------------------------
-| This file lets you re-map URI requests to specific controller functions.
-|
-| Typically there is a one-to-one relationship between a URL string
-| and its corresponding controller class/method. The segments in a
-| URL normally follow this pattern:
-|
-|	example.com/class/method/id/
-|
-| In some instances, however, you may want to remap this relationship
-| so that a different class/function is called than the one
-| corresponding to the URL.
-|
-| Please see the user guide for complete details:
-|
-|	https://codeigniter.com/user_guide/general/routing.html
-|
-| -------------------------------------------------------------------------
-| RESERVED ROUTES
-| -------------------------------------------------------------------------
-|
-| There are three reserved routes:
-|
-|	$route['default_controller'] = 'welcome';
-|
-| This route indicates which controller class should be loaded if the
-| URI contains no data. In the above example, the "welcome" class
-| would be loaded.
-|
-|	$route['404_override'] = 'errors/page_missing';
-|
-| This route will tell the Router which controller/method to use if those
-| provided in the URL cannot be matched to a valid route.
-|
-|	$route['translate_uri_dashes'] = FALSE;
-|
-| This is not exactly a route, but allows you to automatically route
-| controller and method names that contain dashes. '-' isn't a valid
-| class or method name character, so it requires translation.
-| When you set this option to TRUE, it will replace ALL dashes in the
-| controller and method URI segments.
-|
-| Examples:	my-controller/index	-> my_controller/index
-|		my-controller/my-method	-> my_controller/my_method
-*/
+Route::loadConfig();
 
 $route['default_controller'] = 'Authentication';
 $route['404_override'] = 'routes/redirect_404';
 $route['404'] = 'routes/redirect_404';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['admin'] = 'Authentication/index';
-$route['admin/login'] = 'Authentication/index';
-$route['admin/dashboard'] = 'dashboard/index';
-$route['admin/authentication/sign-in'] = 'Authentication/sign_in';
-$route['admin/authentication/sign-out'] = 'Authentication/sign_out';
+/*
+ * ROUTE start
+ * parameters:
+ *     - method: (GET, POST, PUT, DELETE)
+ *     - uri (parameters :param1/:param2/:param3...)
+ *     - url parameters: (array) 
+ *           - key: uri parameters (:param1/:param2/:param3...)
+ *           - value: parameters type ((:num), (:any), (regexp))
+ *     - action:
+ *     		- directories (optional)
+ *     		- controller
+ *     		- function
+ *     - languages: (optional) 
+ *     		- empty (use default language)
+ *     		- ALL (generate all language route)
+ *     		- language list (array)
+ * 
+*/
+
+/* use, if application_language_storage is SESSION */
+Route::set('GET' ,'language/:lang' , ['lang' => '(:any)'], 'routes/change_language', 'ALL');
+
+
+Route::set('GET' ,'/' , [], 'Authentication/index', 'ALL');
+Route::set('GET' ,'login' , [], 'Authentication/index', 'ALL');
+Route::set('GET' ,'dashboard' , [], 'dashboard/index', 'ALL');
+Route::set('POST' ,'authentication/sign-in' , [], 'Authentication/sign_in', 'ALL');
+Route::set('GET' ,'authentication/sign-out' , [], 'Authentication/sign_out', 'ALL');
+
+/*ROUTE end*/
+
+$route += Route::get_ci_all();
+
+
+// echo "<pre>";
+// print_r($route);
+// echo "</pre>";
