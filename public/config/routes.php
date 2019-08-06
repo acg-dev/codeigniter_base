@@ -31,8 +31,6 @@ Route::set('GET' ,'language/:lang' , ['lang' => '(:any)'], 'routes/change_langua
 
 
 Route::set('GET' ,'' , [], 'home/index', 'ALL');
-Route::set('GET' ,'home' , [], 'home/home', 'ALL');
-// Route::set('GET' ,'home/:vehicle_id/:plate_number_id' , ['vehicle_id'=>'(:num)','plate_number_id'=>'(:num)'], 'home/home', 'ALL');
 
 /*ROUTE end*/
 

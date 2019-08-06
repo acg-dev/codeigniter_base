@@ -83,9 +83,7 @@ class Route{
 						).$r_str;
 					}
 					if( !empty(self::$global_config['application_uri_prefix']) ) {
-						$r_str = (
-							(0 == strlen($r_str)) ? self::$global_config['application_uri_prefix'] : "{" . self::$global_config['application_uri_prefix'] . "}/"
-						).$r_str;
+						$r_str = self::$global_config['application_uri_prefix'] . $r_str;
 					}
 					
 					foreach( $params as $key => $param ) {

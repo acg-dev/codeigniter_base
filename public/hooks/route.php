@@ -14,10 +14,10 @@ function route_hook() {
 			}
 
 			if(!$found){
-				echo "<pre>";
 				$uri = $config['base_url'] . $config['application_default_language_key'] . '/';
 
 				$request_uri = explode('?', $_SERVER['REQUEST_URI']);
+
 				if(array_key_exists(0, $request_uri)){
 					$uri .= str_replace('/'. $config['base_uri'], '', $request_uri[0]);
 				}
