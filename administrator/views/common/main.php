@@ -11,6 +11,19 @@
 
     <script type="text/javascript">
         var base_url = '<?php echo base_url(); ?>';
+        var app_url = '<?php echo root_url('api/'); ?>';
+        var date_format = {
+            'date_format': '<?php echo $this->current_language['date_format_full_js'] ?>'
+        };
+        
+        var currency_format = {
+            'label': '<?php echo $this->currency['label'] ?>',
+            'number_format' : {
+                'thousend_delimiter': '<?php echo $this->currency['number_format']['thousend_delimiter'] ?>',
+                'decimal_delimiter': '<?php echo $this->currency['number_format']['decimal_delimiter'] ?>',
+                'decimals': '<?php echo $this->currency['number_format']['decimals'] ?>'
+            }
+        };
     </script>
     <?php if(!empty($css_files)): ?>
         <?php foreach($css_files as $file): ?>
