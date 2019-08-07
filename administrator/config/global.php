@@ -23,37 +23,37 @@
 	$config['application_language_segment_no'] = 1; // Hányadik a nyelvi file az URI-ban
 	$config['application_default_language_key'] = 'hu';
 	$config['languages'] = array(
-		'hu'=>array(
-			'key'=>'hu',
-			'folder'=>'hungarian',
-			'date_format_full'=>'Y-m-d',
-			'date_format_full_js'=>'yyyy-mm-dd',
-			'time_format_short'=>'H:i',
-			'time_format_long'=>'H:i:s',
-			'datetime_format_full'=>'Y-m-d H:i:s',
-			'user_name_order'=>'LF',
-		),
-		'en'=>array(
-			'key'=>'en',
-			'folder'=>'english',
-			'date_format_full'=>'d/m/Y',
-			'date_format_full_js'=>'dd/mm/yyyy',
-			'time_format_short'=>'H:i',
-			'time_format_long'=>'H:i:s',
-			'datetime_format_full'=>'d/m/Y H:i:s',
-			'user_name_order'=>'FL',
-		),
-		/*'de'=>array(
-			'key'=>'de',
-			'folder'=>'deusch',
-			'date_format_full'=>'d/m/Y',
-			'date_format_month'=>'m/Y',
-			'time_format_short'=>'H:i',
-	    'datetime_format_full'=>'d/m/Y H:i:s',
-			'time_format_long'=>'H:i:s',
-	    'user_name_order'=>'FL',
-	),*/
-	);
+	'hu'=>array(
+		'key'=>'hu',
+		'folder'=>'hungarian',
+		'date_format_full'=>'Y-m-d',
+		'date_format_full_js'=>'yyyy-mm-dd',
+		'date_format_string'=>'{Y} {m} {d}',
+		'time_format_short'=>'H:i',
+		'time_format_long'=>'H:i:s',
+		'datetime_format_full'=>'Y-m-d H:i:s',
+		'user_name_order'=>'LF',
+		'day_name' => array('hétfő', 'kedd', 'szerda', 'csütörtök', 'péntek', 'szombat', 'vasárnap'),
+		'month_name' => array('január', 'február', 'március', 'április', 'május', 'június', 'július', 'augusztus', 'szeptember', 'október', 'november', 'december'),
+		'month_short_name' => array('jan', 'febr', 'márc', 'ápr', 'máj', 'júns', 'júl', 'aug', 'szept', 'okt', 'nov', 'dec'),
+		'day_string' => array('before_yesterday' => 'tegnap előtt', 'yesterday' => 'tegnap', 'today' => 'ma', 'tomorrow' => 'holnap', 'after_tomorrow' => 'holnap után'),
+	),
+	'en'=>array(
+		'key'=>'en',
+		'folder'=>'english',
+		'date_format_full'=>'d/m/Y',
+		'date_format_full_js'=>'dd/mm/yyyy',
+		'date_format_string'=>'{d} {m} {Y}',
+		'time_format_short'=>'H:i',
+		'time_format_long'=>'H:i:s',
+		'datetime_format_full'=>'d/m/Y H:i:s',
+		'user_name_order'=>'FL',
+		'day_name' => array('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'),
+		'month_name' => array('january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'),
+		'month_short_name' => array('jan', 'feb', 'march', 'apr', 'may', 'june', 'july', 'aug', 'sept', 'oct', 'nov', 'dec'),
+		'day_string' => array('before_yesterday' => 'before yesterday', 'yesterday' => 'yesterday', 'today' => 'today', 'tomorrow' => 'tomorrow', 'after_tomorrow' => 'after tomorrow'),
+	),
+);
 	$config['application_default_currency_key'] = 'huf';
 	$config['currencies'] = array(
 		'huf'=>array(

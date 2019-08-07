@@ -12,9 +12,7 @@ if (!function_exists('convert_date')){
 			preg_match('/((?P<year>\d{4}).{1,3}(?P<month>\d{2}).{1,3}(?P<day>\d{2}).*)/',  $date, $m);
 
 		$date = (!empty($m['year'])? $m['year'] : '1970') .'-'. (!empty($m['month'])? $m['month'] : '01') .'-'. (!empty($m['day'])? $m['day'] : '01') . ' ' . (!empty($m['hour'])? $m['hour'] : '00') . ':' . (!empty($m['minute'])? $m['minute'] : '00') . ':00';
-		$day_name = array('hétfő', 'kedd', 'szerda', 'csütörtök', 'péntek', 'szombat', 'vasárnap');
-		$month_name = array('január', 'február', 'március', 'április', 'május', 'június', 'július', 'augusztus', 'szeptember', 'október', 'november', 'december');
-		$month_short_name = array('jan', 'febr', 'márc', 'ápr', 'máj', 'júns', 'júl', 'aug', 'szept', 'okt', 'nov', 'dec');
+		
 		$data = (object) array(
 							'original' => $date, 
 							'date' => date($ci->current_language['date_format_full'], strtotime($date)), 
@@ -23,9 +21,9 @@ if (!function_exists('convert_date')){
 							'datetime' => date($ci->current_language['datetime_format_full'], strtotime($date)), 
 							'day_string' => '', 
 							'to_string' => '', 
-							'day_name'=> $day_name[date('N', strtotime($date)) - 1], 
-							'month_name' => $month_name[date('m', strtotime($date)) - 1], 
-							'month_short_name' => $month_short_name[date('m', strtotime($date)) - 1], 
+							'day_name'=> $ci->current_language['day_name'][date('N', strtotime($date)) - 1], 
+							'month_name' => $ci->current_language['month_name'][date('m', strtotime($date)) - 1], 
+							'month_short_name' => $ci->current_language['month_short_name'][date('m', strtotime($date)) - 1], 
 							'day_of_week' => date('N', strtotime($date)), 
 							'Y' => date('Y', strtotime($date)), 
 							'm' => date('m', strtotime($date)), 
@@ -38,22 +36,22 @@ if (!function_exists('convert_date')){
 							's' => date('s', strtotime($date))
 						);
 
-		$data->to_string = $data->Y .' '. $data->month_name .' '. $data->d;
+		$data->to_string = str_replace(array('{Y}', '{m}', '{d}'), array($data->Y, $data->month_name, $data->d), $ci->current_language['date_format_string']);
 		
 		if(strtotime($date) >= strtotime(date('Y-m-d 00:00:00')) && strtotime($date) <= strtotime(date('Y-m-d 23:59:59')))
-			$data->day_string = 'ma';
+			$data->day_string = $ci->current_language['day_string']['today'];
 		elseif(strtotime($date) >= (strtotime(date('Y-m-d 00:00:00')) - (60 * 60 * 24)) && strtotime($date) <= (strtotime(date('Y-m-d 23:59:59')) - (60 * 60 * 24)))
-			$data->day_string = 'tegnap';
+			$data->day_string = $ci->current_language['day_string']['yesterday'];
 		elseif(strtotime($date) >= (strtotime(date('Y-m-d 00:00:00')) - (60 * 60 * 24 *2)) && strtotime($date) <= (strtotime(date('Y-m-d 23:59:59')) - (60 * 60 * 24 *2)))
-			$data->day_string = 'tegnap előtt';
+			$data->day_string = $ci->current_language['day_string']['before_yesterday'];
 		elseif(strtotime($date) < strtotime(date('Y-01-01 00:00:00')) || strtotime($date) > strtotime(date('Y-12-31 23:59:59')))
 			$data->day_string = $data->Y .' '. $data->month_name .' '. $data->d .'.';
 		elseif(strtotime($date) < strtotime(date('Y-m-'. (date('j', strtotime($date)) - $data->day_of_week) .' 00:00:00')) || strtotime($date) > date('Y-m-'. (date('j', strtotime($date)) + (7 - $data->day_of_week)) .' 00:00:00'))
 			$data->day_string = $data->month_name .' '. $data->d .'.';
 		elseif(strtotime($date) >= (strtotime(date('Y-m-d 00:00:00')) + (60 * 60 * 24)) && strtotime($date) <= (strtotime(date('Y-m-d 23:59:59')) + (60 * 60 * 24)))
-			$data->day_string = 'holnap';
+			$data->day_string = $ci->current_language['day_string']['tomorrow'];
 		elseif(strtotime($date) >= (strtotime(date('Y-m-d 00:00:00')) + (60 * 60 * 24 *2)) && strtotime($date) <= (strtotime(date('Y-m-d 23:59:59')) + (60 * 60 * 24 *2)))
-			$data->day_string = 'holnap után';
+			$data->day_string = $ci->current_language['day_string']['after_tomorrow'];
 		else
 			$data->day_string = $day_name[date('N', strtotime($date)) - 1];
 		
