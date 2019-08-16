@@ -26,7 +26,7 @@ class Route{
 
 	public static function get( $action , $lang, $method = 'GET' ) {
 		if(array_key_exists($method, self::$reverse_route) && array_key_exists($lang, self::$reverse_route[$method]) && array_key_exists($action, self::$reverse_route[$method][$lang])){
-			return self::$reverse_route[$method][$lang][$action];
+			return self::$reverse_route[$method][$lang][$action]['route'];
 		}
 		return '';
 	}

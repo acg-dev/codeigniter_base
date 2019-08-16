@@ -7,6 +7,7 @@ class ACG_Controller extends CI_Controller {
     public $currency = null;
     public $languages = null;
     public $current_user;
+    public $input_data;
     protected $response;
 
     protected $_supported_formats = [
@@ -161,6 +162,12 @@ class ACG_Controller extends CI_Controller {
 		
 		$this->load_language();
 	    $this->set_currency();
+
+        $this->input_data = (object) array(
+                                'get' => $this->input->get(NULL, true),
+                                'post' => $this->input->get(NULL, true),
+                                'raw' => json_decode(file_get_contents('php://input'))
+                            );
 
 	// $this->current_user = $this->authentication_service->get_current_user();
 

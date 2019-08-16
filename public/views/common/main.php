@@ -37,6 +37,7 @@
     <?php endif; ?>
 
     <script type="text/javascript">
+        var facebook_object = {};
         var base_url = '<?php echo base_url(); ?>';
         var app_url = '<?php echo root_url('api/'); ?>';
         var date_format = {
@@ -74,18 +75,29 @@
     <?php if(!empty($appis->google_fonts)): ?>
         <?php echo $appis->google_fonts; ?>
     <?php endif; ?>
+    
     <?php if(!empty($appis->fb)): ?>
         <script>
           window.fbAsyncInit = function() {
             FB.init({
-              app_id           : '<?php echo $appis->fb; ?>',
-              autoLogAppEvents : true,
-              xfbml            : true,
-              version          : 'v4.0'
+              appId      : '<?php echo $appis->fb; ?>',
+              cookie     : true,
+              xfbml      : true,
+              version    : 'v4.0'
             });
+              
+            FB.AppEvents.logPageView();   
+              
           };
+
+          (function(d, s, id){
+             var js, fjs = d.getElementsByTagName(s)[0];
+             if (d.getElementById(id)) {return;}
+             js = d.createElement(s); js.id = id;
+             js.src = "https://connect.facebook.net/hu_HU/sdk.js";
+             fjs.parentNode.insertBefore(js, fjs);
+           }(document, 'script', 'facebook-jssdk'));
         </script>
-        <script async defer src="https://connect.facebook.net/hu_HU/sdk.js"></script>
    <?php endif; ?>
 
    <?php if(!empty($css_files)): ?>
@@ -100,14 +112,14 @@
         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','<?php $appis->tagmanager; ?>');</script>
+})(window,document,'script','dataLayer','<?php echo $appis->tagmanager; ?>');</script>
 <!-- End Google Tag Manager -->
 <?php endif; ?>
 </head>
 <body id="<?php echo $page_id; ?>">
     <?php if(!empty($appis->tagmanager)): ?>
         <!-- Google Tag Manager (noscript) -->
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<?php $appis->tagmanager; ?>"
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<?php echo $appis->tagmanager; ?>"
             height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <!-- End Google Tag Manager (noscript) -->
         <?php endif; ?>
@@ -117,13 +129,14 @@
     </main>
     <?php echo $footer; ?>
 
+    <?php echo $cookie_police; ?>
+    <?php echo $notification_html; ?>
+    <?php echo $modals; ?>
+    
     <?php if(!empty($js_files)): ?>
         <?php foreach($js_files as $file): ?>
             <script src="<?php echo $file; ?>"></script>
         <?php endforeach; ?>
     <?php endif; ?>
-    <?php echo $cookie_police; ?>
-    <?php echo $notification_html; ?>
-    <?php echo $modals; ?>
 </body>
 </html>

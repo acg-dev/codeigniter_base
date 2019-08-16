@@ -21,14 +21,12 @@ class Route{
 		if( empty(self::$reverse_route[$method][$lang]) ) {
 			self::$reverse_route[$method][$lang] = [];
 		}
-		if( empty(self::$reverse_route[$method][$lang][$action]) ) {
-			self::$reverse_route[$method][$lang][$action][] = $route;
-		}
+		self::$reverse_route[$method][$lang][$action] = $route;
 	}
 
 	public static function get( $action , $lang, $method = 'GET' ) {
 		if(array_key_exists($method, self::$reverse_route) && array_key_exists($lang, self::$reverse_route[$method]) && array_key_exists($action, self::$reverse_route[$method][$lang])){
-			return self::$reverse_route[$method][$lang][$action];
+			return self::$reverse_route[$method][$lang][$action]['route'];
 		}
 		return '';
 	}
@@ -42,10 +40,8 @@ class Route{
 		
 		foreach( self::$reverse_route as $method => $methods ) {
 			foreach( $methods as $lang => $actions ) {
-				foreach( $actions as $action => $rows) {
-					foreach( $rows as $row) {
-						$routes[$row['route']][$method] = $action . self::get_param_string($row['params']);
-					}
+				foreach( $actions as $action => $row) {
+					$routes[$row['route']][$method] = $action . self::get_param_string($row['params']);
 				}
 			}
 		}
@@ -66,7 +62,7 @@ class Route{
 
 	public static function set( $method , $route_str , $params , $action , $lang = '' ) {
 
-		if(self::$global_config['application_language_storage'] == 'URL' && self::$global_config['application_use_multilang']){
+		if(self::$global_config['application_language_storage'] == 'URL'){
 			if( (is_string($lang) && empty($lang)) || (is_array($lang) && 0 == count($lang) ) ) {
 				$lang = self::$global_config['application_default_language_key'];
 			}elseif($lang == 'ALL'){
@@ -81,10 +77,11 @@ class Route{
 				if(array_key_exists($l, self::$global_config['languages'])){
 					$a = $action;
 					$r_str = $route_str;
-					$r_str = (
+					if( self::$global_config['application_use_multilang'] ) {
+						$r_str = (
 							(0 == strlen($r_str)) ? $l : "$l/"
 						).$r_str;
-
+					}
 					if( !empty(self::$global_config['application_uri_prefix']) ) {
 						$r_str = self::$global_config['application_uri_prefix'] . $r_str;
 					}
@@ -93,23 +90,25 @@ class Route{
 						$r_str = str_replace(":$key", $param, $r_str);
 					}
 					
-					self::add($method, $a , array('route' => str_replace('//', '', $r_str), 'params' => $params) , $l );
+					self::add($method, $a , array('route' => $r_str, 'params' => $params) , $l );
 				}
 			}
-		}else{
+		}elseif(self::$global_config['application_language_storage'] == 'SESSION'){
 			if(!empty($route_str)){
 				$a = $action;
 				$r_str = $route_str;
 				
 				if( !empty(self::$global_config['application_uri_prefix']) ) {
-					$r_str = self::$global_config['application_uri_prefix'] . $r_str;
+					$r_str = (
+						(0 == strlen($r_str)) ? self::$global_config['application_uri_prefix'] : "{" . self::$global_config['application_uri_prefix'] . "}/"
+					).$r_str;
 				}
 				
 				foreach( $params as $key => $param ) {
 					$r_str = str_replace(":$key", $param, $r_str);
 				}
 				
-				self::add($method, $a, array('route' => str_replace('//', '', $r_str), 'params' => $params), 'default');
+				self::add($method, $a, array('route' => $r_str, 'params' => $params), 'default');
 			}
 		}
 	}

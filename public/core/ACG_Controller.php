@@ -17,22 +17,29 @@ class ACG_Controller extends CI_Controller {
 
         $this->data = new stdClass();
         $this->data->meta = array();
-        $this->data->appis = array();
+        $this->data->appis = new stdClass();
         $this->data->css_files = array();
         $this->data->js_files = array();
         $this->data->output = array();
-
-        if($this->input->cookie('cookie-police', TRUE) && $this->input->cookie('cookie-police', TRUE) == 'true')
-            $this->cookie_police = true;
-        else
-            $this->cookie_police = false;
+        $this->data->body = new stdClass();
+        $this->data->body->header = true;
+        $this->data->body->content = true;
+        $this->data->body->footer = true;
 
         $this->read_global();
         $this->load_language();
         $this->set_currency();
+        
+        if($this->input->cookie('cookie-police', TRUE) && $this->input->cookie('cookie-police', TRUE) == 'true'){
+            $this->cookie_police = true;
+        }else{
+            $this->cookie_police = false;
+            $this->set_js('vue/cookie-police.js');
+        }
+
     }
 
-    protected function render($page_template = '', $page_id = false, $base = 'pages') {
+    public function render($page_template = '', $page_id = false, $base = 'pages') {
         
         $base_data = array(
             'page_id' => $page_id ? $page_id : strtolower($this->router->class),
@@ -40,12 +47,12 @@ class ACG_Controller extends CI_Controller {
             'appis' => $this->data->appis,
             'css_files' => $this->data->css_files,
             'js_files' => $this->data->js_files,
-            'header' => $this->load->view('common/header', $this->data, true),
+            'header' => $this->data->body->header ? $this->load->view('common/header', $this->data, true) : '',
             'notification_html' => $this->load->view('widgets/modals/system_notifications', array('notifications' =>$this->system_notification->render(), 'level' => $this->system_notification->get_level()), true),
-            'content' => $this->load->view($base .'/'. $page_template, $this->data->output, true),
+            'content' => $this->data->body->content ? $this->load->view($base .'/'. $page_template, $this->data->output, true) : '',
             'modals' => $this->modal->render(),
             'cookie_police' => (!$this->cookie_police)? $this->load->view('common/cookie_police', $this->data, true) : '',
-            'footer' => $this->load->view('common/footer', $this->data, true),
+            'footer' => $this->data->body->footer ? $this->load->view('common/footer', $this->data, true) : '',
         );
 
         $this->load->view('common/main', $base_data);
@@ -81,7 +88,7 @@ class ACG_Controller extends CI_Controller {
         if(!empty($global['appis'])){
             foreach ($global['appis'] as $key => $value) {
                 if (!empty($key) && !empty($value)) {
-                    $this->data->appis[$key] = $value;
+                    $this->data->appis->{$key} = $value;
                 }
             }
         }
@@ -121,9 +128,6 @@ class ACG_Controller extends CI_Controller {
 
     protected function set_meta($key, $value) {
         if (!empty($key) && !empty($value)) {
-            if($key == 'title'){
-                $value .= ' - Orákulum | ACG Group';
-            }
             $this->data->meta[$key] = $value;
         }
     }
@@ -196,5 +200,17 @@ class ACG_Controller extends CI_Controller {
             $this->session->set_userdata('currency',$this->config->item('currencies')[$this->config->item('application_default_currency_key')]);
         }
         $this->currency = $this->session->userdata('currency');
+    }
+
+    public function set_body_status($header = true, $content = true, $footer = true) {
+        if(is_bool($header)){
+            $this->data->body->header = $header;
+        }
+        if(is_bool($content)){
+            $this->data->body->content = $content;
+        }
+        if(is_bool($footer)){
+            $this->data->body->footer = $footer;
+        }
     }
 }

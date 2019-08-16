@@ -26,6 +26,7 @@ $route['translate_uri_dashes'] = FALSE;
  * 
 */
 
+Route::set('PUT' ,'cookie' , [], 'v1/cookie/index');
 Route::set('GET' ,'home' , [], 'v1/home/home');
 
 /*ROUTE end*/

@@ -29,14 +29,14 @@ if(!empty($_SERVER['HTTPS']))
 else
 	$config['http_protocol'] = 'http://';
 
-$config['base_uri'] = 'base_system/';
+$config['base_uri'] = 'base_system';
 
 if(ENVIRONMENT == 'development'){
-  $config['base_url'] = $config['http_protocol'] . $_SERVER['HTTP_HOST'] . '/' . $config['base_uri'];
+  $config['base_url'] = $config['http_protocol'] . $_SERVER['HTTP_HOST'] . '/' . $config['base_uri'] . '/';
 }elseif(ENVIRONMENT == 'testing'){
-  $config['base_url'] = $config['http_protocol'] . $_SERVER['HTTP_HOST'] . '/' . $config['base_uri'];
+  $config['base_url'] = $config['http_protocol'] . $_SERVER['HTTP_HOST'] . '/' . $config['base_uri'] . '/';
 }else{
-  $config['base_url'] = $config['http_protocol'] . $_SERVER['HTTP_HOST'] . '/' . $config['base_uri'];
+  $config['base_url'] = $config['http_protocol'] . $_SERVER['HTTP_HOST'] . '/' . $config['base_uri'] . '/';
 }
 
 /*
