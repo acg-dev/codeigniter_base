@@ -40,9 +40,27 @@
         var facebook_object = {};
         var base_url = '<?php echo base_url(); ?>';
         var app_url = '<?php echo root_url('api/'); ?>';
-        var date_format = {
-            'date_format': '<?php echo $this->current_language['date_format_full_js'] ?>'
-        };
+        var current_language = {
+			<?php if(!empty($this->current_language)): ?>
+				<?php foreach ($this->current_language as $key => $value): ?>
+					<?php if(!is_array($value)): ?>
+						<?php echo $key ?>: '<?php echo $value; ?>',
+					<?php elseif(is_array($value)): ?>
+						<?php if(count($value) > 0 && is_numeric(array_keys($value)[0])): ?>
+							<?php echo $key ?>: ['<?php echo implode('\', \'', $value) ?>'],
+						<?php elseif(count($value) == 0): ?>
+							<?php echo $key ?>: [],
+						<?php else: ?>
+							<?php echo $key ?>: {
+								<?php foreach ($value as $key1 => $value1): ?>
+									<?php echo $key1 ?>: '<?php echo $value1; ?>',
+								<?php endforeach; ?>
+							},
+						<?php endif; ?>
+					<?php endif; ?>
+				<?php endforeach; ?>
+			<?php endif; ?>
+		};
         
         var currency_format = {
             'label': '<?php echo $this->currency['label'] ?>',

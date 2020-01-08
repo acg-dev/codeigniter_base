@@ -8,7 +8,7 @@ function route_hook() {
 		if($config['application_use_multilang'] && $config['application_language_storage'] == 'URL' && !empty($config['application_default_language_key'])){
 			$found = false;
 			foreach (array_keys($config['languages']) as $lang) {
-				if(preg_match("/\/{$lang}\//", $_SERVER['REQUEST_URI'] . '/', $m)){
+				if(preg_match("/\/{$lang}\//", $_SERVER['REQUEST_URI'] . '/')){
 					$found = true;
 				}
 			}
@@ -25,7 +25,8 @@ function route_hook() {
 					$uri .= '?' . $request_uri[1];
 				}
 
-				header('location: ' . $uri);
+				$uri = str_replace(array('http://', 'https://', '//'), '', $uri);
+				header('location: ' . $config['http_protocol'] . $uri);
 			}
 		}
 	}

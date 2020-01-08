@@ -59,3 +59,4 @@ function DateHelper(){
 
 var DateHelper = new DateHelper();
 Vue.prototype.DateHelper = DateHelper;
+Vue.prototype.current_language = current_language;

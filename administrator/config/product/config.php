@@ -29,15 +29,9 @@ if(!empty($_SERVER['HTTPS']))
 else
 	$config['http_protocol'] = 'http://';
 
-$config['base_uri'] = 'base_system';
+$config['base_url'] = $config['http_protocol'] . $_SERVER['HTTP_HOST'] . BASE_ROOT;
 
-if(ENVIRONMENT == 'development'){
-  $config['base_url'] = $config['http_protocol'] . $_SERVER['HTTP_HOST'] . '/' . $config['base_uri'] . '/';
-}elseif(ENVIRONMENT == 'testing'){
-  $config['base_url'] = $config['http_protocol'] . $_SERVER['HTTP_HOST'] . '/' . $config['base_uri'] . '/';
-}else{
-  $config['base_url'] = $config['http_protocol'] . $_SERVER['HTTP_HOST'] . '/' . $config['base_uri'] . '/';
-}
+
 /*
 |--------------------------------------------------------------------------
 | Index File
@@ -113,7 +107,7 @@ $config['charset'] = 'UTF-8';
 | setting this variable to TRUE (boolean).  See the user guide for details.
 |
 */
-$config['enable_hooks'] = TRUE;
+$config['enable_hooks'] = true;
 
 /*
 |--------------------------------------------------------------------------
@@ -416,8 +410,13 @@ $config['sess_regenerate_destroy'] = FALSE;
 $config['cookie_prefix']	= '';
 $config['cookie_domain']	= '';
 $config['cookie_path']		= '/';
-$config['cookie_secure']	= FALSE;
-$config['cookie_httponly'] 	= FALSE;
+if(!empty($_SERVER['HTTPS'])){
+	$config['cookie_secure']	= true;
+}else{
+	$config['cookie_secure']	= false;
+}
+
+$config['cookie_httponly'] 	= true;
 
 /*
 |--------------------------------------------------------------------------
@@ -461,10 +460,9 @@ $config['global_xss_filtering'] = TRUE;
 | 'csrf_regenerate' = Regenerate token on every submission
 | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
 */
-
-$config['csrf_protection'] = (ENVIRONMENT == 'production');
-$config['csrf_token_name'] = 'acg_csrf';
-$config['csrf_cookie_name'] = 'acg_csrf';
+$config['csrf_protection'] = true;
+$config['csrf_token_name'] = 'csrf';
+$config['csrf_cookie_name'] = 'csrf';
 $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = TRUE;
 $config['csrf_exclude_uris'] = array();
@@ -489,7 +487,7 @@ $config['csrf_exclude_uris'] = array();
 | by the output class.  Do not 'echo' any values with compression enabled.
 |
 */
-$config['compress_output'] = FALSE;
+$config['compress_output'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------

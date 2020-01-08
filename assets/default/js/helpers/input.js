@@ -17,7 +17,7 @@ function InputHelper(){
                     }else{
                         datas[type] = undefined;
                     }
-                    
+                    current_object.$forceUpdate();
                     if(callback != undefined){
                         if(typeof callback == 'string'){
                             current_object[callback](datas[type]);

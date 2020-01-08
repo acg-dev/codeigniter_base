@@ -25,7 +25,8 @@ function route_hook() {
 					$uri .= '?' . $request_uri[1];
 				}
 
-				header('location: ' . $uri);
+				$uri = str_replace(array('http://', 'https://', '//'), '', $uri);
+				header('location: ' . $config['http_protocol'] . $uri);
 			}
 		}
 	}

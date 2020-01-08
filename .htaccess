@@ -3,6 +3,20 @@ RewriteBase /base_system/
 
 <IfModule mod_env.c>
     SetEnv CI_ENV development
+	SetEnv CI_BASE_ROOT /base_system/
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header always set Access-Control-Allow-Origin "*"
+	Header always set Access-Control-Allow-Methods "POST, GET, OPTIONS"
+	
+	Header set X-XSS-Protection "1; mode=block"
+	Header always append X-Frame-Options SAMEORIGIN
+	Header set X-Content-Type-Options nosniff
+
+	Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires 0
 </IfModule>
 
 RewriteRule ^(css|js|images|fonts|datas|uploads|plugins)/(.*)$ assets/default/$1/$2 [L,NC]
