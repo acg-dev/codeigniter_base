@@ -21,13 +21,23 @@ class Documents_model extends CI_Model {
 		
 		if($object_type == 'array'){
 			if($query->num_rows() > 0){
-				return $query->result();
+				$results = $query->result();
+				foreach($results as $row){
+					$row->url = UPLOAD_DOCUMENTS_ROOT_HTTP . $row->path  . $row->file_name;
+				}
+				return $results;
 			}
 		}else{
 			if($query->num_rows() > 1){
-				return $query->result();
+				$results = $query->result();
+				foreach($results as $row){
+					$row->url = UPLOAD_DOCUMENTS_ROOT_HTTP . $row->path . $row->file_name;
+				}
+				return $results;
 			}elseif($query->num_rows() > 0){
-				return $query->row();
+				$row = $query->row();
+				$row->url = UPLOAD_DOCUMENTS_ROOT_HTTP . $row->path  . $row->file_name;
+				return $row;
 			}
 		}
 
@@ -61,6 +71,10 @@ class Documents_model extends CI_Model {
 												'create_user_id' => $this->current_user->id,
 												'create_user_name' => $this->current_user->display_name,
 											));
+	}
+
+	public function update_file($id, $data){
+		return $this->db->where('id', $id)->update('documents', $data);
 	}
 
 	public function delete_file($id){
